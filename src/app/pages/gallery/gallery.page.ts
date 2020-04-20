@@ -83,6 +83,6 @@ export class GalleryPage implements OnInit {
   }
 
   private async showGalleryPicker() {
-    await this.imagePicker.getPictures({});
+    const pictures = await this.imagePicker.getPictures({});
   }
 }

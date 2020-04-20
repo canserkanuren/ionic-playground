@@ -37,23 +37,7 @@ export class PhotoService {
 
     // Save the picture and add it to photo collection
     const savedImageFile = await this.savePicture(capturedPhoto);
-    this.photos.unshift(savedImageFile);
-
-    Storage.set({
-      key: this.PHOTO_STORAGE,
-      value: this.platform.is('hybrid')
-        ? JSON.stringify(this.photos)
-        : JSON.stringify(
-            this.photos.map(p => {
-              // Don't save the base64 representation of the photo data,
-              // since it's already saved on the Filesystem
-              const photoCopy = { ...p };
-              delete photoCopy.base64;
-
-              return photoCopy;
-            })
-          )
-    });
+    this.savePhotoFromGalleryIntoStorage(savedImageFile);
   }
 
   public async loadSaved() {
